@@ -1,15 +1,21 @@
 var express = require('express');
 var router = express.Router();
+var Day = require ('../../models/day.js');
 module.exports = router;
 
 // Gets all the days
 router.get('/days', function(req, res, next) {
-    console.log('GET ALL DAYS');
+    Day.findAll().then(function(days){
+        res.json(days);
+    })
+    .catch(next)
 });
 
 // Gets specific day
 router.get('/days/:id', function(req, res, next) {
-    console.log('GET PARTICULAR DAY');
+    Day.findOne({where: 
+        {id: req.params.id}    
+    })
 });
 
 // Create a new day
