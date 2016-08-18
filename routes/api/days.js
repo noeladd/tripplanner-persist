@@ -24,9 +24,15 @@ router.get('/days/:id', function(req, res, next) {
 // Create a new day
 router.post('/days', function(req, res, next) {
     Day.findAll().then(function(days){
+       if (days.length === 0){
+           Day.create({
+               number: 1
+           });
+       } else {
         Day.create({
             number: +days[days.length-1].number + 1
         });
+       }
     });
 });
 
